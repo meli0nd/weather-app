@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto";
+}
+
+.forecast-active {
+  transform: scale(1.1);
+  background: rgba(200, 200, 200, 0.6) !important;
+}
+
+.forecast-info::-webkit-scrollbar {
+  width: 10px;
+}
+
+.forecast-info::-webkit-scrollbar-track {
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px 10px rgba(200, 200, 200, 0.6);
+  border: solid 5px transparent;
+}
+
+.forecast-info::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px 10px white;
+  border: solid 5px transparent;
+}

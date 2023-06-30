@@ -14,7 +14,6 @@ const ErrorPage: FC<TError> = ({
   searchValue,
   setSetSearchValue,
   onSearch,
-  error,
   refetchLocationData,
 }) => {
   return (

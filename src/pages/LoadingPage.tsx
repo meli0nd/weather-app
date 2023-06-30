@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import Header from "../components/Header"
+import WeatherInfoSkeleton from "../components/WeatherInfoSkeleton"
 
 type TLoading = {
   setSetSearchValue: any
@@ -21,9 +22,7 @@ const LoadingPage: FC<TLoading> = ({
         onSearch={onSearch}
       />
 
-      <div className="mt-[150px] text-white font-bold text-[70px] ">
-        Loading...
-      </div>
+      <WeatherInfoSkeleton />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import Home from "./pages/Home"
-import "./App.css"
+import "./App.scss"
 
 const App: FC = () => {
   return (

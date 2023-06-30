@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import Search from "./Search"
 
-type TSearch = {
+export type TSearch = {
   setSetSearchValue: any
   searchValue: string
   onSearch: (str: string) => void
