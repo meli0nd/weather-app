@@ -26,7 +26,6 @@ const MainPage: FC<TMainPage> = ({
   onShowMore,
   onHideMore,
   forecastIndex,
-  refetchLocationData,
   onRefetch,
   weatherData,
 }) => {

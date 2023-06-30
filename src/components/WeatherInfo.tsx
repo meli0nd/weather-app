@@ -344,7 +344,7 @@ const WeatherInfo: FC<TWeatherInfo> = ({
           rounded-3xl transition-all ease-out duration-300
           hover:bg-gray-300`}
         >
-          Your location
+          Main page
         </button>
         <button
           onClick={onHideMore}
