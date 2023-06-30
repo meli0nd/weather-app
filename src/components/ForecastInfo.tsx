@@ -24,7 +24,7 @@ type TForecastInfo = {
     localtime: string
   }
   showMore: boolean
-  onShowMore: () => void
+  onShowMore: (index: number) => void
 }
 
 const ForecastInfo: FC<TForecastInfo> = ({
@@ -34,6 +34,7 @@ const ForecastInfo: FC<TForecastInfo> = ({
   onShowMore,
 }) => {
   const info = forecast.forecastday[0].hour || ""
+  console.log(info)
   const realTime = Array.from(location.localtime).slice(11, 13).join("")
   const scrollRef = useHorizontalScroll()
 

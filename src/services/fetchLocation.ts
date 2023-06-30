@@ -11,7 +11,7 @@ export const fetchLocation = async (latitude?: number, longitude?: number) => {
       return res.data
     }
     const res_1 = await axios.get(
-      `${baseURL}?key=ec79ae10a11c45bdb1d115610232606&q=Moscow`
+      `${baseURL}?key=ec79ae10a11c45bdb1d115610232606&q=London`
     )
     return res_1.data
   } catch (error) {

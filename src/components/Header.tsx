@@ -7,6 +7,8 @@ export type TSearch = {
   onSearch: (str: string) => void
   inputFocus?: boolean
   error?: boolean
+  showBackButton: boolean
+  onRefetch: () => void
 }
 
 const Header: FC<TSearch> = ({
@@ -14,6 +16,8 @@ const Header: FC<TSearch> = ({
   setSetSearchValue,
   onSearch,
   error,
+  showBackButton,
+  onRefetch,
 }) => {
   return (
     <div className="w-full flex flex-col justify-ceter items-center">
@@ -25,6 +29,8 @@ const Header: FC<TSearch> = ({
         abilities
       </span>
       <Search
+        onRefetch={onRefetch}
+        showBackButton={showBackButton}
         error={error}
         searchValue={searchValue}
         setSetSearchValue={setSetSearchValue}

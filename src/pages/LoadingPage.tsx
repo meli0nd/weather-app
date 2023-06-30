@@ -6,17 +6,22 @@ type TLoading = {
   setSetSearchValue: any
   searchValue: string
   onSearch: (str: string) => void
-  inputFocus?: boolean
+  showBackButton: boolean
+  onRefetch: () => void
 }
 
 const LoadingPage: FC<TLoading> = ({
   searchValue,
   setSetSearchValue,
   onSearch,
+  showBackButton,
+  onRefetch,
 }) => {
   return (
     <div className="w-full h-screen flex flex-col justify-start items-center pt-7">
       <Header
+        onRefetch={onRefetch}
+        showBackButton={showBackButton}
         searchValue={searchValue}
         setSetSearchValue={setSetSearchValue}
         onSearch={onSearch}

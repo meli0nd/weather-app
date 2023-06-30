@@ -2,6 +2,7 @@ import { time } from "console"
 import React, { FC } from "react"
 
 type TWeatherInfo = {
+  showBackButton: boolean
   forecastIndex?: number
   onHideMore: () => void
   onRefetch: () => void
@@ -58,6 +59,7 @@ const WeatherInfo: FC<TWeatherInfo> = ({
   onRefetch,
   onHideMore,
   forecastIndex,
+  showBackButton,
 }) => {
   const forecastTimeString: any =
     forecastIndex && forecast.forecastday[0].hour[forecastIndex].time
@@ -336,9 +338,11 @@ const WeatherInfo: FC<TWeatherInfo> = ({
       >
         <button
           onClick={onRefetch}
-          className="mr-[50px] uppercase px-14 py-3 font-bold bg-white shadow-lg
+          className={`${
+            showBackButton && "hidden"
+          } mr-[50px] uppercase px-14 py-3 font-bold bg-white shadow-lg
           rounded-3xl transition-all ease-out duration-300
-          hover:bg-gray-300"
+          hover:bg-gray-300`}
         >
           Your location
         </button>

@@ -8,6 +8,7 @@ import LoadingPage from "./LoadingPage"
 import ErrorPage from "./ErrorPage"
 import { useFetchByLocation } from "../hooks/useFetchByLocation"
 import { useFetchBySearch } from "../hooks/useFetchBySearch"
+import MainPage from "./MainPage"
 
 const Home: React.FC = () => {
   const client = useQueryClient()
@@ -66,6 +67,8 @@ const Home: React.FC = () => {
   }, [data])
 
   const weatherData = searchData ? searchData : data
+  const showBackButton = searchData ? true : false
+
   document.body.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       onSearch(searchValue)
@@ -80,6 +83,8 @@ const Home: React.FC = () => {
     ) {
       return (
         <LoadingPage
+          onRefetch={onRefetch}
+          showBackButton={showBackButton}
           searchValue={searchValue}
           setSetSearchValue={setSetSearchValue}
           onSearch={onSearch}
@@ -91,6 +96,8 @@ const Home: React.FC = () => {
   if (searchData && searchData.code) {
     return (
       <ErrorPage
+        onRefetch={onRefetch}
+        showBackButton={showBackButton}
         refetchLocationData={onRefetch}
         error={true}
         searchValue={searchValue}
@@ -100,32 +107,25 @@ const Home: React.FC = () => {
     )
   }
 
-  return (
-    <div className="w-full flex flex-col items-center justify-start pt-7">
-      <Header
+  if (isSuccess) {
+    return (
+      <MainPage
+        weatherData={weatherData}
+        forecastIndex={forecastIndex}
+        {...weatherData}
+        showMore={showMore}
+        onRefetch={onRefetch}
+        onHideMore={onHideMore}
+        onShowMore={onShowMore}
+        showBackButton={showBackButton}
+        refetchLocationData={onRefetch}
         searchValue={searchValue}
         setSetSearchValue={setSetSearchValue}
         onSearch={onSearch}
       />
-
-      {isSuccess && (
-        <>
-          <WeatherInfo
-            forecastIndex={forecastIndex}
-            {...weatherData}
-            showMore={showMore}
-            onRefetch={onRefetch}
-            onHideMore={onHideMore}
-          />
-          <ForecastInfo
-            {...weatherData}
-            onShowMore={onShowMore}
-            showMore={showMore}
-          />
-        </>
-      )}
-    </div>
-  )
+    )
+  }
+  return <></>
 }
 
 export default Home

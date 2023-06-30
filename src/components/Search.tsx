@@ -6,6 +6,8 @@ const Search: FC<TSearch> = ({
   setSetSearchValue,
   onSearch,
   error,
+  showBackButton,
+  onRefetch,
 }) => {
   useEffect(() => {}, [error])
 
@@ -21,14 +23,24 @@ const Search: FC<TSearch> = ({
         value={searchValue}
         onChange={(e) => setSetSearchValue(e.target.value)}
       />
-      <button
-        className={`${redOutline} duration-300 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
-        onClick={() => {
-          onSearch(searchValue)
-        }}
-      >
-        Search
-      </button>
+      <div>
+        <button
+          className={`${redOutline} duration-300 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
+          onClick={() => {
+            onSearch(searchValue)
+          }}
+        >
+          Search
+        </button>
+        <button
+          className={`${redOutline} ${
+            !showBackButton && "hidden"
+          } ml-[50px] duration-300 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
+          onClick={onRefetch}
+        >
+          To your location
+        </button>
+      </div>
     </div>
   )
 }

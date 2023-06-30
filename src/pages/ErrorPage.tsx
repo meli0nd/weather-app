@@ -6,8 +6,10 @@ type TError = {
   searchValue: string
   onSearch: (str: string) => void
   inputFocus?: boolean
+  showBackButton: boolean
   error?: boolean
   refetchLocationData: () => void
+  onRefetch: () => void
 }
 
 const ErrorPage: FC<TError> = ({
@@ -15,10 +17,14 @@ const ErrorPage: FC<TError> = ({
   setSetSearchValue,
   onSearch,
   refetchLocationData,
+  showBackButton,
+  onRefetch,
 }) => {
   return (
     <div className="w-full h-screen flex flex-col justify-start items-center pt-7">
       <Header
+        onRefetch={onRefetch}
+        showBackButton={showBackButton}
         error={true}
         searchValue={searchValue}
         setSetSearchValue={setSetSearchValue}
