@@ -25,7 +25,7 @@ const Search: FC<TSearch> = ({
       />
       <div>
         <button
-          className={`${redOutline} duration-300 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
+          className={`${redOutline} duration-100 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
           onClick={() => {
             onSearch(searchValue)
           }}
@@ -35,7 +35,7 @@ const Search: FC<TSearch> = ({
         <button
           className={`${redOutline} ${
             !showBackButton && "hidden"
-          } ml-[50px] duration-300 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
+          } ml-[50px] duration-100 transition-all px-7 py-3 bg-white shadow-lg  rounded-3xl disabled:bg-gray-400 disabled:opacity-25 hover:bg-gray-300`}
           onClick={onRefetch}
         >
           To your location

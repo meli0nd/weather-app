@@ -1,11 +1,9 @@
-import { time } from "console"
 import React, { FC } from "react"
+import WeatherItem from "./WeatherItem"
 
 type TWeatherInfo = {
-  showBackButton: boolean
   forecastIndex?: number
   onHideMore: () => void
-  onRefetch: () => void
   showMore: boolean
   current: {
     temp_c: number
@@ -56,15 +54,11 @@ const WeatherInfo: FC<TWeatherInfo> = ({
   current,
   forecast,
   showMore,
-  onRefetch,
   onHideMore,
   forecastIndex,
-  showBackButton,
 }) => {
   const forecastTimeString: any =
     forecastIndex && forecast.forecastday[0].hour[forecastIndex].time
-  const forecastTime =
-    forecastIndex && Array.from(forecastTimeString).slice(11, 16).join("")
   const feelsLike =
     forecastIndex && forecast.forecastday[0].hour[forecastIndex].feelslike_c
   const humidity =
@@ -143,19 +137,80 @@ const WeatherInfo: FC<TWeatherInfo> = ({
       break
   }
 
-  const weatherActive =
+  const weatherActiveClass =
     "!flex-row bg-gray-500 rounded-2xl bg-opacity-50 py-[20px] mt-[100px]"
-  const weatherLeftSide = "mr-[50px]"
-  const weatherFullInfo = "h-[500px]"
+  const weatherLeftSideClass = "mr-[50px]"
+  const weatherFullInfoClass = "h-[500px]"
+
+  const weatherInfoArray = [
+    {
+      id: 1,
+      image: "img/temp-max.svg",
+      condition: `${maxTemp}°`,
+      conditionText: "Max temp",
+    },
+    {
+      id: 2,
+      image: "img/wind-icon.svg",
+      condition: `${wind} km/h`,
+      conditionText: "Wind",
+    },
+    {
+      id: 3,
+      image: "img/sunrise-icon.svg",
+      condition: `${sunrise}`,
+      conditionText: "Sunrise",
+    },
+    {
+      id: 4,
+      image: "img/temp-min.svg",
+      condition: `${minTemp}°`,
+      conditionText: "Min temp",
+    },
+    {
+      id: 5,
+      image: "img/rain-icon.svg",
+      condition: `${rainChance}%`,
+      conditionText: "Rain",
+    },
+    {
+      id: 6,
+      image: "img/sunset-icon.svg",
+      condition: `${sunset}`,
+      conditionText: "Sunset",
+    },
+    {
+      id: 7,
+      image: "img/feelslike-icon.svg",
+      condition: `${feelsLike}°`,
+      conditionText: "Feels like",
+    },
+    {
+      id: 8,
+      image: "img/winddir.svg",
+      condition: `${windDirection}`,
+      conditionText: "Wind dir",
+    },
+    {
+      id: 9,
+      image: "img/humidity-icon.svg",
+      condition: `${humidity}%`,
+      conditionText: "Humidity",
+    },
+  ]
+
+  const weatherInfoItem = !showMore
+    ? weatherInfoArray.slice(0, 6)
+    : weatherInfoArray
 
   return (
     <div className=" w-full flex flex-col justify-center items-center">
       <div
         className={`w-full flex flex-col  duration-300  items-center justify-around px-[50px] mt-[15px] ${
-          showMore && weatherActive
+          showMore && weatherActiveClass
         }`}
       >
-        <div className="mr-[100px]">
+        <div className={showMore ? "mr-[100px]" : ""}>
           <div className="flex weather-left-side">
             <div className="flex flex-col items-center justify-end">
               <div className="flex items-center justify-center weather-left-side">
@@ -173,13 +228,17 @@ const WeatherInfo: FC<TWeatherInfo> = ({
           </div>
           <div
             className={`mb-[15px] flex flex-col items-center justify-center ${
-              showMore && weatherLeftSide
+              showMore && weatherLeftSideClass
             }`}
           >
             <h1 className="text-[68px] font-bold text-white uppercase text-center">
               {temp}°C
             </h1>
-            <div className={`flex items-center ${showMore && weatherLeftSide}`}>
+            <div
+              className={`flex items-center ${
+                showMore && weatherLeftSideClass
+              }`}
+            >
               <img
                 src={icon}
                 alt="weather icon"
@@ -195,138 +254,13 @@ const WeatherInfo: FC<TWeatherInfo> = ({
         </div>
         <div
           className={`rounded-2xl relative right-side max-w-[50%] flex flex-col justify-center flex-wrap items-center text-center bg-gray-400 bg-opacity-40 ${
-            showMore && weatherFullInfo
+            showMore && weatherFullInfoClass
           }`}
         >
-          {/* верх */}
-          <div className="w-full flex flex-wrap justify-between items-center text-center ">
-            <div className="w-[200px] flex  items-center justify-center m-[30px]">
-              <img
-                src="img/temp-max.svg"
-                alt="temp max"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{maxTemp}°</b>
-                </span>{" "}
-                <span className="uppercase text-white text-xl">Max temp</span>
-              </div>
-            </div>
-            <div className="w-[200px] flex  items-center justify-center m-[30px]">
-              <img
-                src="img/winddir-icon.svg"
-                alt="wind"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{wind} km/h</b>
-                </span>
-                <span className="uppercase text-white text-xl">Wind</span>
-              </div>
-            </div>
-            <div className="w-[200px] flex  items-center justify-center m-[30px]">
-              <img
-                src="img/sunrise-icon.svg"
-                alt="sunrise"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{sunrise}</b>
-                </span>
-                <span className="uppercase text-white text-xl">Sunrise</span>
-              </div>
-            </div>
-          </div>
-          {/* center */}
-          <div className="w-full flex justify-between items-center text-center">
-            <div className="w-[200px] flex items-center justify-center m-[30px]">
-              <img
-                src="img/temp-min.svg"
-                alt="temp min"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{minTemp}°</b>
-                </span>
-                <span className="uppercase text-white text-xl">Min temp</span>
-              </div>
-            </div>
-            <div className="w-[200px] flex items-center justify-center m-[30px]">
-              <img
-                src="img/temp-min.svg"
-                alt="rain"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{rainChance}%</b>
-                </span>
-                <span className="uppercase text-white text-xl">Rain</span>
-              </div>
-            </div>
-            <div className="w-[200px] flex  items-center justify-center m-[30px]">
-              <img
-                src="img/sunset-icon.svg"
-                alt="sunset"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{sunset}</b>
-                </span>
-                <span className="uppercase text-white text-xl">Sunset</span>
-              </div>
-            </div>
-          </div>
-          {/* низ */}
-          <div
-            className={`${
-              showMore && "!flex justify-between items-center "
-            } w-full hidden text-center`}
-          >
-            <div className="w-[200px] flex items-center justify-center m-[30px]">
-              <img
-                src="img/feelslike-icon.svg"
-                alt="feels like"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{feelsLike}°</b>
-                </span>
-                <span className="uppercase text-white text-xl">Feels like</span>
-              </div>
-            </div>
-            <div className="w-[200px] flex items-center justify-center m-[30px]">
-              <img
-                src="img/wind-icon.svg"
-                alt="wind dir"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{windDirection}</b>
-                </span>
-                <span className="uppercase text-white text-xl">Wind Dir</span>
-              </div>
-            </div>
-            <div className="w-[200px] flex items-center justify-center m-[30px]">
-              <img
-                src="img/humidity-icon.svg"
-                alt="humidity"
-                className={`${showMore && "w-[30px] !block"} mr-[15px] hidden`}
-              />
-              <div className="flex flex-col">
-                <span className="text-2xl  text-white">
-                  <b>{humidity}%</b>
-                </span>
-                <span className="uppercase text-white text-xl">Humidity</span>
-              </div>
-            </div>
+          <div className="w-full !flex  flex-wrap justify-between items-center text-center ">
+            {weatherInfoItem.map((info) => (
+              <WeatherItem key={info.id} showMore={showMore} {...info} />
+            ))}
           </div>
         </div>
       </div>
@@ -337,20 +271,10 @@ const WeatherInfo: FC<TWeatherInfo> = ({
         } flex justify-center items-center mt-[50px]`}
       >
         <button
-          onClick={onRefetch}
-          className={`${
-            showBackButton && "hidden"
-          } mr-[50px] uppercase px-14 py-3 font-bold bg-white shadow-lg
-          rounded-3xl transition-all ease-out duration-300
-          hover:bg-gray-300`}
-        >
-          Main page
-        </button>
-        <button
           onClick={onHideMore}
           className="uppercase px-14 py-3 font-bold bg-white shadow-lg
-          rounded-3xl transition-all ease-out duration-300
-          hover:bg-gray-300"
+          rounded-3xl transition-all ease-out duration-100
+          hover:bg-gray-400"
         >
           Hide full info
         </button>

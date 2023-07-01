@@ -34,7 +34,7 @@ const ForecastItem: FC<TForecastItem> = ({
   return (
     <div
       onClick={() => onShowMore(index)}
-      className={`rounded-[20px] min-w-[150px] h-[175px] p-[20px] mt-[30px] mr-[15px] inline-flex justify-normal items-center flex-col bg-gray-400 bg-opacity-40 ${
+      className={`duration-100 rounded-[20px] cursor-pointer min-w-[150px] h-[175px] p-[20px] mt-[30px] mr-[15px] inline-flex justify-normal items-center flex-col bg-gray-400 bg-opacity-40 hover:!bg-gray-600 hover:!bg-opacity-50 ${
         isActive && "forecast-active"
       }`}
     >
